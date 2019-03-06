@@ -6,3 +6,9 @@ class Video:
         self.description = description
         self.appear_date = appear_date
         self.expiration_date = expiration_date
+
+
+class VideoResolution:
+    def __init__(self, url, resolution):
+        self.url = url
+        self.resolution = resolution
