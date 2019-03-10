@@ -1,11 +1,12 @@
 class Video:
-    def __init__(self, channel, id, title, description, appear_date, expiration_date):
-        self.channel = channel
+    def __init__(self, id, title, description, appear_date, expiration_date, channel, brand):
         self.id = id
         self.title = title
         self.description = description
         self.appear_date = appear_date
         self.expiration_date = expiration_date
+        self.channel = channel
+        self.brand = brand
 
 
 class VideoResolution:
@@ -15,9 +16,9 @@ class VideoResolution:
 
 
 class Brand:
-    def __init__(self, channel, id, title, total_videos, description):
-        self.channel = channel
+    def __init__(self, id, title, total_videos, description, channel):
         self.id = id
         self.title = title
         self.total_videos = total_videos
         self.description = description
+        self.channel = channel

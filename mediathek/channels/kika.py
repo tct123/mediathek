@@ -39,12 +39,13 @@ class Kika(BaseChannel):
 
 class KikaVideo(Video):
     def __init__(self, data, channel):
-        self.channel = self
         self.id = data["id"]
         self.title = data["title"]
         self.description = data["description"]
         self.appear_date = Kika._parse_date(data["appearDate"])
         self.expiration_date = Kika._parse_date(data["expirationDate"])
+        self.channel = self
+        self.brand = KikaBrand(data["_embedded"]["brand"], channel=channel)
 
     def download_urls(self):
         r = requests.get(f"{Kika.BASE_API_URL}/videos/{self.id}/player-assets")
@@ -63,9 +64,9 @@ class KikaVideo(Video):
 
 class KikaBrand(Brand):
     def __init__(self, data, channel):
-        self.channel = channel
         self.id = data["id"]
         self.title = data["title"]
         self.total_videos = data["totalVideos"]
         # Some brands do not have a description
         self.description = data.get("description")
+        self.channel = channel
