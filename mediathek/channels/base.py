@@ -7,3 +7,6 @@ class BaseChannel:
 
     def all_brands(self):
         raise NotImplementedError
+
+    def brand(self):
+        raise NotImplementedError

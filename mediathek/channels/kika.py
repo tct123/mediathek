@@ -32,6 +32,10 @@ class Kika(BaseChannel):
 
         return results
 
+    def brand(self, id):
+        r = requests.get(f"{self.BASE_API_URL}/brands/{id}")
+        return KikaBrand(r.json(), channel=self)
+
     @staticmethod
     def _parse_date(raw_date):
         return datetime.now()
