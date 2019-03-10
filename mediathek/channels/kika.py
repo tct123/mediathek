@@ -2,7 +2,7 @@ import requests
 from datetime import datetime
 
 from .base import BaseChannel
-from ..models import Video, VideoResolution
+from ..models import Video, VideoResolution, Brand
 
 
 class Kika(BaseChannel):
@@ -14,13 +14,23 @@ class Kika(BaseChannel):
         results = []
 
         for video_data in videos:
-            results.append(KikaVideo(video_data))
+            results.append(KikaVideo(video_data, channel=self))
 
-        return
+        return results
 
     def video(self, id):
         r = requests.get(f"{self.BASE_API_URL}/videos/{id}")
-        return KikaVideo(r.json())
+        return KikaVideo(r.json(), channel=self)
+
+    def all_brands(self):
+        r = requests.get(f"{self.BASE_API_URL}/brands")
+        brands = r.json()["_embedded"]["items"]
+        results = []
+
+        for brand_data in brands:
+            results.append(KikaBrand(brand_data, channel=self))
+
+        return results
 
     @staticmethod
     def _parse_date(raw_date):
@@ -28,7 +38,7 @@ class Kika(BaseChannel):
 
 
 class KikaVideo(Video):
-    def __init__(self, data):
+    def __init__(self, data, channel):
         self.channel = self
         self.id = data["id"]
         self.title = data["title"]
@@ -49,3 +59,13 @@ class KikaVideo(Video):
             )
 
         return results
+
+
+class KikaBrand(Brand):
+    def __init__(self, data, channel):
+        self.channel = channel
+        self.id = data["id"]
+        self.title = data["title"]
+        self.total_videos = data["totalVideos"]
+        # Some brands do not have a description
+        self.description = data.get("description")

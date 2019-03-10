@@ -12,3 +12,12 @@ class VideoResolution:
     def __init__(self, url, resolution):
         self.url = url
         self.resolution = resolution
+
+
+class Brand:
+    def __init__(self, channel, id, title, total_videos, description):
+        self.channel = channel
+        self.id = id
+        self.title = title
+        self.total_videos = total_videos
+        self.description = description
