@@ -74,3 +74,13 @@ class KikaBrand(Brand):
         # Some brands do not have a description
         self.description = data.get("description")
         self.channel = channel
+
+    def all_videos(self):
+        r = requests.get(f"{Kika.BASE_API_URL}/brands/{self.id}/videos")
+        videos = r.json()["_embedded"]["items"]
+        results = []
+
+        for video_data in videos:
+            results.append(KikaVideo(video_data, channel=self))
+
+        return results

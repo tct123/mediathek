@@ -22,3 +22,6 @@ class Brand:
         self.total_videos = total_videos
         self.description = description
         self.channel = channel
+
+    def all_videos(self):
+        raise NotImplementedError
