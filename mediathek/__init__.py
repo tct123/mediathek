@@ -1,3 +1,4 @@
-from .channels import Kika
+from .channels import Kika, Zdf
 
-__all__ = ["Kika"]
+
+__all__ = ["Kika", "Zdf"]
