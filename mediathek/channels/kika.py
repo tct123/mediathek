@@ -48,7 +48,7 @@ class KikaVideo(Video):
         self.description = data["description"]
         self.appear_date = Kika._parse_date(data["appearDate"])
         self.expiration_date = Kika._parse_date(data["expirationDate"])
-        self.channel = self
+        self.channel = channel
         self.brand = KikaBrand(data["_embedded"]["brand"], channel=channel)
 
     def download_urls(self):
