@@ -1,7 +1,7 @@
 import requests
 
 from .base import BaseChannel
-from ..models import Video, Brand
+from ..models import Video, VideoResolution, Brand
 
 
 class Zdf(BaseChannel):
@@ -25,6 +25,13 @@ class ZdfVideo(Video):
         self.expiration_date = Zdf._parse_date(data["timetolive"])
         self.channel = channel
         self.brand = None
+        self.download_urls = [
+            VideoResolution(
+                url=resolution["url"],
+                resolution=resolution["quality"]
+            )
+            for resolution in data["formitaeten"]
+        ]
 
 
 class KikaBrand(Brand):
