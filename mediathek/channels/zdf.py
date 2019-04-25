@@ -46,7 +46,14 @@ class ZdfVideo(Video):
         self.channel = channel
         self.brand = None
 
-        self.headers = headers
+        self._headers = headers
+        self._asset_id = data["mainVideoContent"]["http://zdf.de/rels/target"]["extId"]
+
+    def download_urls(self):
+        r = requests.get(
+            f"{Zdf.BASE_API_URL}/tmd/2/ngplayer_2_3/vod/ptmd/mediathek/{self._asset_id}",
+            headers=self._headers
+        )
 
 
 class ZdfBrand(Brand):
